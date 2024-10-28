@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberbullying Awareness Quiz</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin: 20px 0;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cyberbullying Awareness Quiz</h1>
+        <div id="quiz"></div>
+        <button onclick="submitQuiz()">Submit</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { 
+                question: "What is cyberbullying?", 
+                options: [
+                    "A. Bullying that takes place over digital devices",
+                    "B. Physical bullying in school",
+                    "C. Verbal bullying in public places",
+                    "D. None of the above"
+                ],
+                answer: "A"
+            },
+            { 
+                question: "Which of the following is a form of cyberbullying?", 
+                options: [
+                    "A. Sending threatening messages",
+                    "B. Posting harmful rumors online",
+                    "C. Excluding someone from an online group",
+                    "D. All of the above"
+                ],
+                answer: "D"
+            },
+            { 
+                question: "How can someone report cyberbullying?", 
+                options: [
+                    "A. Ignoring it",
+                    "B. Reporting it to the platform or school",
+                    "C. Responding with anger",
+                    "D. Spreading the rumor further"
+                ],
+                answer: "B"
+            },
+            { 
+                question: "Which age group is most affected by cyberbullying?", 
+                options: [
+                    "A. Adults",
+                    "B. Teenagers",
+                    "C. Children under 10",
+                    "D. Senior citizens"
+                ],
+                answer: "B"
+            }
+        ];
+
+        function loadQuiz() {
+            const quizDiv = document.getElementById('quiz');
+            questions.forEach((q, index) => {
+                quizDiv.innerHTML += `
+                    <div class="question">
+                        <label>${q.question}</label><br>
+                        ${q.options.map((option, i) => `
+                            <input type="radio" name="question${index}" value="${option.charAt(0)}" id="q${index}o${i}">
+                            <label for="q${index}o${i}">${option}</label><br>
+                        `).join('')}
+                    </div>
+                `;
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption && selectedOption.value === q.answer) {
+                    score++;
+                }
+            });
+            document.getElementById('result').innerText = `You got ${score} out of ${questions.length} correct.`;
+        }
+
+        loadQuiz();
+    </script>
+
+</body>
+</html>
